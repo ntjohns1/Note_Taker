@@ -18,13 +18,13 @@ app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, 'public/notes.
 
 app.get('/api/notes', (req, res) => {
     fs.readFile('db/db.json', 'utf8', function read(err, data) {
-          if (err) {
-              throw err;
-          }
-          let notes = JSON.parse(data);
-    res.json(notes)
+        if (err) {
+            throw err;
+        }
+        let notes = JSON.parse(data);
+        res.json(notes)
     });
-  });
+});
 
 // POST /api/notes should receive a new note to save on the request body, add it to the db.json file, and then return the new note to the client. You'll need to find a way to give each note a unique id when it's saved (look into npm packages that could do this for you).
 app.post('/api/notes', (req, res) => {
@@ -42,16 +42,44 @@ app.post('/api/notes', (req, res) => {
             }
             res.json(notes);
         })
-    });    
-});        
+    });
+});
 
-
+// GET * should return the notes.html file.
 // why do we need the *?
 app.get('*', (req, res) => {
-    console.log("works at GET /");
     res.sendFile(path.join(__dirname, 'public/index.html'))
 });
-// GET * should return the notes.html file.
+
+// Monday Night: left of trying to compare req.params.id to id's in the array by looping through.
+app.delete('/api/notes/:id', (req, res) => {
+    fs.readFile('db/db.json', 'utf8', function read(err, data) {
+        if (err) {
+            throw err;
+        }
+        let notes = JSON.parse(data);
+   
+        let getId = () => {
+            notes.forEach(note => {
+                if (note.id === req.params.id) {
+                    return false;
+                }
+            });
+        }
+        console.log(getId);
+        let newArray = notes.filter(getId);
+      
+        console.log(newArray);
+        // fs.writeFile('./db/db.json', JSON.stringify(newArray), err => {
+        //     if (err) {
+        //         throw err;
+        //     }
+        //     res.json(newArray);
+        // })
+    });
+});
+
+
 
 
 app.listen(PORT, () => console.log(`App listening on PORT ${PORT}`));

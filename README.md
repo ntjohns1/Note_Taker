@@ -1,17 +1,16 @@
 # Note_Taker
 
-Note Taker is an application that allows the user to take and store notes.
+Note Taker is a simple app for taking and storing notes.
 
 ## Installation
 
 ```bash
-npm i express
-npm i uuid
+npm i express && npm i uuid
 ```
 
 ## Usage
 
-Click the Get Started! button to go to the Note page. Enter a title for your note and the content below and click the save icon that appears to store your note. Click the title in the left hand column to view a saved note, click the red trash icon to delete it.
+Click the 'Get Started!' button to go to the Notes page. Enter your note and give it a title, then click the save icon that appears on the top right to store your note. Click the title in the left hand column to view a saved note. Click the red trash icon to delete it.
 
 ## Contributing
 [Nelson Johns](https://github.com/ntjohns1/)
