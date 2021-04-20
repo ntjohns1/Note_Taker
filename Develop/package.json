@@ -1,13 +1,13 @@
 {
   "name": "note-taker",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple app for writing and storing notes.",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon server.js"
   },
-  "author": "",
+  "author": "ntjohns1",
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
