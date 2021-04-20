@@ -2,6 +2,9 @@
 const path = require('path');
 const express = require('express');
 const fs = require('fs');
+const { v4: uuidv4 } = require('uuid');
+const notesData = require('./db/db.json')
+
 
 const PORT = 3030;
 const app = express();
@@ -15,23 +18,27 @@ app.use(express.static('public'));
 app.get('/notes', (req, res) => res.sendFile(path.join(__dirname, 'public/notes.html')));
 // GET /notes should return the notes.html file.
 
-app.get('/api/notes', (req, res) => {
-    fs.readFile('db/db.json', 'utf8', (error, data) => {
-        error ? console.error(error) : res.json(data); 
-    });
-    // how do we return the JSON?
-    // return res.json(data);
-    // GET /api/notes should read the db.json file and return all saved notes as JSON.
-});
+app.get('/api/notes', (req, res) => res.json(notesData));
 
 // POST /api/notes should receive a new note to save on the request body, add it to the db.json file, and then return the new note to the client. You'll need to find a way to give each note a unique id when it's saved (look into npm packages that could do this for you).
 app.post('/api/notes', (req, res) => {
-    console.log(typeof req.body);
-    const newNote = JSON.stringify(req.body);
-    fs.appendFile('db/db.json', newNote, (err) =>
-        err ? console.error(err) : console.log('Commit logged!')
-    );
-});
+    // read db file
+    fs.readFile('db/db.json', 'utf8', function read(err, data) {
+        if (err) {
+            throw err;
+        }
+        let notes = JSON.parse(data);
+        req.body.id = uuidv4();
+        notes.push(req.body);
+        fs.writeFile('./db/db.json', JSON.stringify(notes), err => {
+            if (err) {
+                throw err;
+            }
+            res.json(req.body);
+        })
+    });    
+});        
+
 
 // why do we need the *?
 app.get('*', (req, res) => {
