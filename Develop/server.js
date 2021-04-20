@@ -4,7 +4,7 @@ const express = require('express');
 const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 
-const PORT = 3030;
+const PORT = process.env.PORT || 3030;
 const app = express();
 
 // Sets up the Express app to handle data parsing
@@ -52,32 +52,32 @@ app.get('*', (req, res) => {
 });
 
 // Monday Night: left of trying to compare req.params.id to id's in the array by looping through.
-app.delete('/api/notes/:id', (req, res) => {
-    fs.readFile('db/db.json', 'utf8', function read(err, data) {
-        if (err) {
-            throw err;
-        }
-        let notes = JSON.parse(data);
+// app.delete('/api/notes/:id', (req, res) => {
+//     fs.readFile('db/db.json', 'utf8', function read(err, data) {
+//         if (err) {
+//             throw err;
+//         }
+//         let notes = JSON.parse(data);
    
-        let getId = () => {
-            notes.forEach(note => {
-                if (note.id === req.params.id) {
-                    return false;
-                }
-            });
-        }
-        console.log(getId);
-        let newArray = notes.filter(getId);
+//         let getId = () => {
+//             notes.forEach(note => {
+//                 if (note.id === req.params.id) {
+//                     return false;
+//                 }
+//             });
+//         }
+//         console.log(getId);
+//         let newArray = notes.filter(getId);
       
-        console.log(newArray);
-        // fs.writeFile('./db/db.json', JSON.stringify(newArray), err => {
-        //     if (err) {
-        //         throw err;
-        //     }
-        //     res.json(newArray);
-        // })
-    });
-});
+//         console.log(newArray);
+//         // fs.writeFile('./db/db.json', JSON.stringify(newArray), err => {
+//         //     if (err) {
+//         //         throw err;
+//         //     }
+//         //     res.json(newArray);
+//         // })
+//     });
+// });
 
 
 
