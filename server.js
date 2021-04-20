@@ -36,7 +36,7 @@ app.post('/api/notes', (req, res) => {
         let notes = JSON.parse(data);
         req.body.id = uuidv4();
         notes.push(req.body);
-        fs.writeFile('./db/db.json', JSON.stringify(notes), err => {
+        fs.writeFile('db/db.json', JSON.stringify(notes), err => {
             if (err) {
                 throw err;
             }
@@ -70,7 +70,7 @@ app.get('*', (req, res) => {
 //         let newArray = notes.filter(getId);
       
 //         console.log(newArray);
-//         // fs.writeFile('./db/db.json', JSON.stringify(newArray), err => {
+//         // fs.writeFile('db/db.json', JSON.stringify(newArray), err => {
 //         //     if (err) {
 //         //         throw err;
 //         //     }
