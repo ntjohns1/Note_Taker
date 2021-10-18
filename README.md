@@ -1,6 +1,6 @@
 # Note_Taker
 
-Note Taker is a simple app for taking and storing notes.
+an application that can be used to write and save notes built with a simple Express backend.
 
 ## Installation
 
